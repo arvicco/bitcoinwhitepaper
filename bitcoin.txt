@@ -1,291 +1,291 @@
-ï»¿Bitcoin whitepaper original fulltext for korean translation on github.com/imc84 
+Bitcoin whitepaper original fulltext for korean translation on github.com/imc84
 
-Bitcoin: A Peer-to-Peer Electronic Cash System
+ºñÆ®ÄÚÀÎ: °³ÀÎ ´ë °³ÀÎ ÀüÀÚ È­Æó ½Ã½ºÅÛ
 
-Satoshi Nakamoto
+»çÅä½Ã ³ªÄ«¸ğÅä
 satoshin@gmx.com
 www.bitcoin.org
 
 ---(0)---
-Abstract.
-A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution.
-Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending.
-We propose a solution to the double-spending problem using a peer-to-peer network.
-The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work.
-The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power.
-As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers.
-The network itself requires minimal structure.
-Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.
+ÃÊ·Ï.
+ÀüÀÚ È­ÆóÀÇ ¼ø¼öÇÑ °³ÀÎ ´ë °³ÀÎ ¹öÀüÀº ±İÀ¶±â°üÀ» °ÅÄ¡Áö ¾Ê°í ÇÑ ÂÊ¿¡¼­ ´Ù¸¥ ÂÊÀ¸·Î Á÷Á¢ Àü´ŞµÇ´Â ¿Â¶óÀÎ °áÁ¦(payments)¸¦ °¡´ÉÄÉ ÇÑ´Ù.
+ÀüÀÚ ¼­¸íÀº ºÎºĞÀûÀÎ ¼Ö·ç¼ÇÀ» Á¦°øÇÏÁö¸¸, ¸¸ÀÏ ÀÌÁßÁöºÒ(double-spending)À» ¸·±â À§ÇØ ¿©ÀüÈ÷ ½Å·Ú¹Ş´Â Á¦3ÀÚ¸¦ ÇÊ¿ä·Î ÇÑ´Ù¸é ±× ÁÖµÈ ÀÌÁ¡À» ÀÒ°Ô µÈ´Ù.
+¿ì¸®´Â °³ÀÎ ´ë °³ÀÎ ³×Æ®¿öÅ©¸¦ »ç¿ëÇØ ÀÌÁßÁöºÒ ¹®Á¦¸¦ ÇØ°áÇÏ´Â ¼Ö·ç¼ÇÀ» Á¦¾ÈÇÑ´Ù.
+ÀÌ ³×Æ®¿öÅ©´Â °Å·¡¸¦ ÇØ½ÌÇØ Å¸ÀÓ½ºÅÆÇÁ¸¦ Âï¾î¼­ ÇØ½Ã ±â¹İ ÀÛ¾÷Áõ¸í(proof-of-work)À» ¿¬°áÇÑ »ç½½·Î ¸¸µé°í, ÀÛ¾÷Áõ¸íÀ» Àç¼öÇàÇÏÁö ¾Ê°í¼­´Â º¯°æÇÒ ¼ö ¾ø´Â ±â·ÏÀ» »ı¼ºÇÑ´Ù.
+°¡Àå ±ä »ç½½Àº ¸ñ°İµÈ »ç°ÇÀÇ ¼ø¼­¸¦ Áõ¸íÇÒ »Ó¾Æ´Ï¶ó, ±×°ÍÀÌ °¡Àå ±¤´ëÇÑ CPU ÆÄ¿ö Ç®¿¡¼­ ºñ·ÔÇßÀ½À» Áõ¸íÇÏ±âµµ ÇÑ´Ù.
+CPU ÆÄ¿ö °ú¹İÀ» ÅëÁ¦ÇÏ´Â ³ëµå°¡ ³×Æ®¿öÅ©¸¦ °ø°İÇÏ±â À§ÇØ Çù·ÂÇÏÁö ¾Ê´Â ÇÑ, ÀÌµéÀº °¡Àå ±ä »ç½½À» ¸¸µé¾î³»¸ç °ø°İÀÚ¸¦ ¾ĞµµÇÑ´Ù.
+ÀÌ ³×Æ®¿öÅ© ½º½º·Î´Â ÃÖ¼ÒÇÑÀÇ ±¸Á¶¸¸À» ¿ä±¸ÇÑ´Ù.
+¸Ş½ÃÁö´Â ÃÖ¼±ÀÇ ³ë·ÂÀ» ´ÙÇØ ÆÛÁ®³ª°¡°í, ³ëµå´Â ÀÇ»ç¿¡ µû¶ó ³×Æ®¿öÅ©¸¦ ¶°³ª°Å³ª ÃÖÀåÀÇ ÀÛ¾÷Áõ¸í »ç½½À» ±×µéÀÌ ¾ø´Â »çÀÌ¿¡ ¹ú¾îÁø ÀÏÀÇ Áõ°Å·Î Ã¤ÅÃÇØ ÀçÇÕ·ùÇÒ ¼ö ÀÖ´Ù.
 
-1.    Introduction 
+1. ¼­·Ğ
 
 ---(1-1)---
-Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments.
-While the system works well enough for most transactions, it still suffers from the inherent weaknesses of the trust based model.
-Completely non-reversible transactions are not really possible, since financial institutions cannot avoid mediating disputes.
-The cost of mediation increases transaction costs, limiting the minimum practical transaction size and cutting off the possibility for small casual transactions, and there is a broader cost in the loss of ability to make non-reversible payments for non- reversible services.
-With the possibility of reversal, the need for trust spreads.
-Merchants must be wary of their customers, hassling them for more information than they would otherwise need.
-A certain percentage of fraud is accepted as unavoidable.
-These costs and payment uncertainties can be avoided in person by using physical currency, but no mechanism exists to make payments over a communications channel without a trusted party.  
+ÀÎÅÍ³İ ±â¹İ »ó°Å·¡´Â ÀüÀÚ °áÁ¦¸¦ Ã³¸®ÇÒ ½Å·Ú¹Ş´Â Á¦3ÀÚ ¿ªÇÒÀ» °ÅÀÇ ÀüÀûÀ¸·Î ±İÀ¶±â°ü¿¡ ÀÇÁ¸ÇØ ¿Ô´Ù.
+ÀÌ ½Ã½ºÅÛÀº ´ë´Ù¼ö °Å·¡¿¡ ÃæºĞÈ÷ Àß µ¿ÀÛÇÏÁö¸¸, ¿©ÀüÈ÷ ½Å·Ú ±â¹İ ¸ğµ¨ÀÇ ÅÂ»ıÀû ¾àÁ¡À» ±Øº¹ÇÏÁö ¸øÇÑ´Ù.
+±İÀ¶±â°üÀº ºĞÀï ÁßÀç¸¦ ÇÇÇÒ ¼ö ¾ø±â¿¡, ¿ÏÀüÇÑ Ã¶È¸ºÒ°¡ °Å·¡´Â ½ÇÁ¦·Î °¡´ÉÇÏÁö ¾Ê´Ù.
+ÁßÀç ºñ¿ëÀº °Å·¡ ºñ¿ëÀ» ³ôÀÌ°í, ½Ç°Å·¡ ÃÖ¼Ò ±Ô¸ğ¸¦ Á¦ÇÑÇÏ¸ç ¼Ò¼ÒÇÑ ÀÏ»óÀû °Å·¡ °¡´É¼ºÀ» °¡·Î¸·°í, Ã¶È¸ºÒ°¡ ¼­ºñ½º¸¦ À§ÇÑ Ã¶È¸ºÒ°¡ °áÁ¦ ´É·ÂÀÇ »ó½Ç¿¡¼­ ´õ Å« ºñ¿ëÀÌ ¹ß»ıÇÑ´Ù.
+Ã¶È¸°¡´É¼ºÀ» À§ÇØ ½Å·Ú È®»êÀÌ ¿ä±¸µÈ´Ù.
+»ó°Å·¡ÀÚ(Merchants)´Â ÇÊ¿ä ¼öÁØº¸´Ù ´õ ¸¹Àº Á¤º¸¸¦ À§ÇØ ±×µéÀ» ±«·ÓÈ÷´Â °í°´À» °æ°èÇØ¾ß ÇÑ´Ù.
+»ç±âÀÇ ÀÏÁ¤ ºñÀ²Àº ºÒ°¡ÇÇÇÑ °ÍÀ¸·Î °£ÁÖµÈ´Ù.
+ÀÌ·± ºñ¿ë°ú °áÁ¦ ºÒÈ®½Ç¼ºÀº Á÷Á¢ ¹°¸®Àû ÅëÈ­(currency)¸¦ »ç¿ë½Ã È¸ÇÇµÉ ¼ö ÀÖÁö¸¸, ½Å·Ú(¹Ş´Â Á¦3)ÀÚ ¾øÀÌ Åë½ÅÃ¤³Î·Î °áÁ¦¸¦ ¼öÇàÇÒ ¹æ¹ıÀº Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
 
 ---(1-2)---
-What is needed is an electronic payment system based on cryptographic proof instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party.
-Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers.
-In this paper, we propose a solution to the double-spending problem using a peer-to-peer distributed timestamp server to generate computational proof of the chronological order of transactions.
-The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+ÇÊ¿äÇÑ °ÍÀº ½Å·Ú ´ë½Å ¾ÏÈ£ÇĞÀû Áõ¸í(cryptographic proof)¿¡ ±â¹İÇØ, °Å·¡ ÀÇ»ç°¡ ÀÖ´Â µÎ ´ç»çÀÚ°¡ ½Å·Ú¹Ş´Â Á¦3ÀÚ¸¦ ÇÊ¿ä·Î ÇÏÁö ¾Ê°í ¼­·Î Á÷Á¢ °Å·¡ÇÏ°Ô ÇØÁÖ´Â ÀüÀÚ È­Æó ½Ã½ºÅÛÀÌ´Ù.
+Àü»êÀûÀ¸·Î Ã¶È¸°¡ ºÒ°¡´ÉÇÑ °Å·¡´Â »ç±â·ÎºÎÅÍ ÆÇ¸ÅÀÚ¸¦ º¸È£ÇÏ°í, Åë»óÀûÀÎ Á¦3ÀÚ ¿¹Ä¡(escrow) ¹æ¹ıÀº ±¸¸ÅÀÚ¸¦ º¸È£ÇÏ±â À§ÇØ ½±°Ô ±¸ÇöµÉ ¼ö ÀÖ´Ù.
+ÀÌ ³í¹®¿¡¼­, ¿ì¸®´Â ½Ã°£¼øÀ¸·Î °Å·¡ÀÇ Àü»êÀû Áõ°Å¸¦ »ı¼ºÇÏ´Â °³ÀÎ ´ë °³ÀÎ°£ ºĞ»ê Å¸ÀÓ½ºÅÆÇÁ ¼­¹ö¸¦ »ç¿ëÇÑ ÀÌÁßÁöºÒ ¹®Á¦ÀÇ ¼Ö·ç¼ÇÀ» Á¦¾ÈÇÑ´Ù.
+ÀÌ ½Ã½ºÅÛÀº Á¤Á÷ÇÑ ³ëµå°¡ °ø°İÀ» ÇÏ·Á°í Çù·ÂÇÏ´Â ³ëµå ±×·ìº¸´Ù ÃÑÃ¼ÀûÀ¸·Î ´õ ¸¹Àº CPU ÆÄ¿ö¸¦ ÅëÁ¦ÇÏ´Â ÇÑ º¸¾È»ó ¾ÈÀüÇÏ´Ù.
 
-2.    Transactions
+2. °Å·¡
 
 ---(2-1)---
-We define an electronic coin as a chain of digital signatures.
-Each owner transfers the coin to the next by digitally signing a hash of the previous transaction and the public key of the next owner and adding these to the end of the coin.
-A payee can verify the signatures to verify the chain of ownership.
+¿ì¸®´Â µğÁöÅĞ ¼­¸íÀÇ »ç½½·Î½á ÀüÀÚÀû È­Æó(electronic coin)À» Á¤ÀÇÇß´Ù.
+°¢ ¼ÒÀ¯ÀÚ´Â È­Æó¸¦ ¼Û±İÇÒ ¶§ ¸ÕÁ£¹ø °Å·¡ ³»¿ª ¹× ´ÙÀ½ ¼ÒÀ¯ÀÚ °ø°³Å°ÀÇ ÇØ½Ã°ª¿¡ ÀüÀÚÀûÀ¸·Î ¼­¸íÀ» ÇÏ°í ÀÌ Á¤º¸¸¦ ÀÌ È­ÆóÀÇ ³¡¿¡ Ã·°¡ÇÑ´Ù.
+¼ö±İÀÚ(payee)´Â ¼ÒÀ¯±Ç(ownership)ÀÇ »ç½½À» °ËÁõÇÏ±â À§ÇØ ÇØ´ç ¼­¸íÀ» °ËÁõÇÒ ¼ö ÀÖ´Ù.
 
-(in-image text)
-Transaction
-Owner
-Public Key
-Signature
-Hash
-Verify
-Sign
-Private Key
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Transaction -> °Å·¡
+Owner -> ¼ÒÀ¯ÀÚ
+Public Key -> °ø°³Å°
+Signature -> ÀüÀÚ¼­¸í
+Hash -> ÇØ½Ã
+Verify -> °ËÁõ
+Sign -> ¼­¸í
+Private Key -> °³ÀÎÅ°
 
 ---(2-2)---
-The problem of course is the payee can't verify that one of the owners did not double-spend the coin.
-A common solution is to introduce a trusted central authority, or mint, that checks every transaction for double spending.
-After each transaction, the coin must be returned to the mint to issue a new coin, and only coins issued directly from the mint are trusted not to be double-spent.
-The problem with this solution is that the fate of the entire money system depends on the company running the mint, with every transaction having to go through them, just like a bank.  
+ÀÌ °úÁ¤»ó ¹®Á¦´Â ¼ö±İÀÚ°¡ ¼ÒÀ¯ÀÚ °¡¿îµ¥ ´©±º°¡°¡ È­Æó¸¦ ÀÌÁßÁöºÒÇÏÁö ¾Ê¾Ò´ÂÁö °ËÁõÇÒ ¼ö ¾ø´Ù´Â Á¡ÀÌ´Ù.
+Åë»óÀûÀÎ ¼Ö·ç¼ÇÀº ½Å·Ú¹Ş´Â Áß¾ÓÅëÁ¦±â°ü(trusted central authority)ÀÌ³ª Á¶Æó±¹(mint)À» µÎ°í ¸ğµç °Å·¡¿¡¼­ ÀÌÁßÁöºÒ ¿©ºÎ¸¦ Á¡°ËÇÏ´Â °ÍÀÌ´Ù.
+°Å·¡¸¦ ¸¶Ä¥ ¶§¸¶´Ù ÀÌ È­Æó´Â Á¶Æó±¹À¸·Î È¸¼öµÅ »õ·Î¿î È­Æó·Î ¹ßÇàµÅ¾ßÇÏ°í, Á¶Æó±¹¿¡¼­ Á÷Á¢ ¹ßÇàµÈ È­Æó¸¸ÀÌ ÀÌÁßÁöºÒµÇÁö ¾Ê¾Ò´Ù°í ½Å·Ú¹Ş´Â´Ù.
+ÀÌ ¼Ö·ç¼ÇÀÇ ¹®Á¦´Â ÀüÃ¼ ÅëÈ­Ã¼°è(the entire money system)ÀÇ ¿î¸íÀÌ ÀºÇàÃ³·³ ¸ğµç °Å·¡°¡ °ÅÃÄ°¡¾ßÇÏ´Â Á¶Æó±¹ ¿î¿µ È¸»ç¿¡ ´Ş·Á ÀÖ´Ù´Â Á¡ÀÌ´Ù.
 
 ---(2-3)---
-We need a way for the payee to know that the previous owners did not sign any earlier transactions.
-For our purposes, the earliest transaction is the one that counts, so we don't care about later attempts to double-spend.
-The only way to confirm the absence of a transaction is to be aware of all transactions.
-In the mint based model, the mint was aware of all transactions and decided which arrived first.
-To accomplish this without a trusted party, transactions must be publicly announced [1], and we need a system for participants to agree on a single history of the order in which they were received.
-The payee needs proof that at the time of each transaction, the majority of nodes agreed it was the first received.
+¿ì¸®¿¡°Ô´Â ¸ÕÁ£¹ø ¼ÒÀ¯ÀÚ°¡ ÀÌÀü¿¡ ¾î¶² °Å·¡¿¡µµ ¼­¸íÇÏÁö ¾Ê¾ÒÀ½À» ¼ö±İÀÚ¿¡°Ô ¾Ë¸± ¼ö´ÜÀÌ ÇÊ¿äÇÏ´Ù.
+ÀÌ·± ¸ñÀû¿¡¼­ ¿ì¸®´Â °¡Àå ¾Õ¼± °Å·¡ ÇÏ³ª¸¦ ÀÎÁ¤ÇÏ°í, ÀÌÈÄ ÀÌÁßÁöºÒ ½Ãµµ¿¡´Â ½Å°æ¾²Áö ¾Ê´Â´Ù.
+±×·± (ÀÌÁßÁöºÒµÈ) °Å·¡°¡ ¾øÀ½À» È®ÀÎÇÒ À¯ÀÏÇÑ ¹æ¹ıÀº ¸ğµç °Å·¡¸¦ ÀÎ½ÄÇÏ°í ÀÖ´Â °Í»ÓÀÌ´Ù.
+Á¶Æó±¹ ±â¹İ ¸ğµ¨¿¡¼­, Á¶Æó±¹Àº ¸ğµç °Å·¡¸¦ ÀÎ½ÄÇß°í ÃÖÃÊ·Î ¹ŞÀº °Å·¡¸¦ (½ÂÀÎ ´ë»óÀ¸·Î) °áÁ¤Çß´Ù.
+½Å·Ú¹Ş´Â (Á¦3)ÀÚ ¾øÀÌ ÀÌ ¹æ½ÄÀ» ½ÇÇöÇÏ·Á¸é, °Å·¡´Â °ø°³ÀûÀ¸·Î ¾Ë·ÁÁ®¾ß ÇÏ°í[1], ³ëµåµéÀÌ °Å·¡¸¦ ¹Ş´Â ¼ø¼­ÀÇ ´ÜÀÏ ÀÌ·Â¿¡ ÇÕÀÇÇÏ´Â ½Ã½ºÅÛÀÌ ÇÊ¿äÇÏ´Ù.
+¼ö±İÀÚ´Â ¸Å °Å·¡½Ã ±×°Ô Ã¹ ¼ö±İÀÌ¶ó´Â °Í¿¡ ³ëµå ´Ù¼ö°¡ µ¿ÀÇÇßÀ½À» Áõ¸íÇØ¾ß ÇÑ´Ù.
 
-3.    Timestamp Server
+3. Å¸ÀÓ½ºÅÆÇÁ ¼­¹ö
 
 ---(3-1)---
-The solution we propose begins with a timestamp server.
-A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a newspaper or Usenet post [2-5].
-The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash.
-Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
+¿ì¸®°¡ Á¦¾ÈÇÏ´Â ¼Ö·ç¼ÇÀº Å¸ÀÓ½ºÅÆÇÁ ¼­¹ö·Î ½ÃÀÛÇÑ´Ù.
+Å¸ÀÓ½ºÅÆÇÁ ¼­¹ö´Â Å¸ÀÓ½ºÅÆÇÁ°¡ ÂïÈù Ç×¸ñ ºí·ÏÀÇ ÇØ½Ã¸¦ °¡Á®°¡ ±× ÇØ½Ã¸¦ ½Å¹®ÀÌ³ª À¯Áî³İ °Ô½Ã¹°[2-5]Ã³·³ ³Î¸® ¹èÆ÷ÇÏ´Â ½ÄÀ¸·Î ÀÛµ¿ÇÑ´Ù.
+ÀÌ Å¸ÀÓ½ºÅÆÇÁ´Â ±× µ¥ÀÌÅÍ°¡, ¸í¹éÈ÷, ÇØ½Ã(°úÁ¤)¿¡ µé¾î°¡±â À§ÇØ ÇØ´ç ½Ã°¢ºÎÅÍ Á¸ÀçÇßÀ½À» Áõ¸íÇÑ´Ù.
+°¢ Å¸ÀÓ½ºÅÆÇÁ´Â ±× ÇØ½Ã ¾È¿¡ ¸ÕÁ£¹ø Å¸ÀÓ½ºÅÆÇÁ¸¦ Æ÷ÇÔÇÏ°í, ±×¿¡ ¾Õ¼± °ÍµéÀ» ÇÏ³ª¾¿ ¿¬ÀåÇÏ´Â(reinforcing the ones) Å¸ÀÓ½ºÅÆÇÁ°¡ ÂïÈù »ç½½À» »ı¼ºÇÑ´Ù.
 
-(in-image text)
-Hash
-Block
-Item
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Hash -> ÇØ½Ã
+Block -> ºí·Ï
+Item -> Ç×¸ñ
 
-4.    Proof-of-Work
+4. ÀÛ¾÷Áõ¸í
 
 ---(4-1)---
-To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof- of-work system similar to Adam Back's Hashcash [6], rather than newspaper or Usenet posts.
-The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the hash begins with a number of zero bits.
-The average work required is exponential in the number of zero bits required and can be verified by executing a single hash.  
+°³ÀÎ ´ë °³ÀÎ ±â¹İÀ¸·Î ºĞ»ê Å¸ÀÓ½ºÅÆÇÁ ¼­¹ö¸¦ ±¸ÇöÇÏ±â À§ÇØ ¿ì¸®´Â ½Å¹®ÀÌ³ª À¯Áî³İ °Ô½Ã¹° ´ë½Å ¾Ö´ı ¹éÀÇ ÇØ½ÃÄ³½Ã(Adam Back's Hashcash)¿Í À¯»çÇÑ ÀÛ¾÷Áõ¸í ½Ã½ºÅÛ[6]À» »ç¿ëÇÒ ÇÊ¿ä°¡ ÀÖ´Ù.
+ÀÛ¾÷Áõ¸íÀº 0ºñÆ®(zero bits) ¿©·¯ °³·Î ½ÃÀÛÇÏ´Â, SHA-256°°Àº ÇØ½ÃµÈ °ª ½ºÄ³´×À» ¼ö¹İÇÑ´Ù.
+ÀÌ¿¡ ÇÊ¿äÇÑ Æò±Õ ÀÛ¾÷Àº ¿ä±¸µÇ´Â 0ºñÆ® ¼ö¿¡ µû¶ó Áö¼öÀûÀÌ¸ç ´ÜÀÏ ÇØ½Ã¸¦ ½ÇÇàÇÔÀ¸·Î½á È®ÀÎµÉ ¼ö ÀÖ´Ù.
 
 ---(4-2)---
-For our timestamp network, we implement the proof-of-work by incrementing a nonce in the block until a value is found that gives the block's hash the required zero bits.
-Once the CPU effort has been expended to make it satisfy the proof-of-work, the block cannot be changed without redoing the work.
-As later blocks are chained after it, the work to change the block would include redoing all the blocks after it.
-
-(in-image text)
-Block
-Prev Hash
-Nonce
-Tx
+Å¸ÀÓ½ºÅÆÇÁ ³×Æ®¿öÅ©¿ëÀ¸·Î, ¿ì¸®´Â ºí·ÏÀÇ ÇØ½Ã¿¡ ÇÊ¿äÇÑ 0ºñÆ®¸¦ ÁÖ´Â °ªÀÌ ¹ß°ßµÉ ¶§±îÁö ºí·Ï ¾È¿¡ ÀÓ½Ã°ªÀ» ÁõºĞ(incrementing a nonce)ÇÏ´Â °ÍÀ¸·Î ÀÛ¾÷Áõ¸íÀ» ±¸ÇöÇß´Ù.
+ÀÛ¾÷Áõ¸íÀ» ¸¸Á·ÇÏ´Â µ¥ ÇÑ ¹ø CPU µ¿ÀÛ(CPU effort)ÀÌ ¾²¿´À¸¸é, ±× ºí·ÏÀº ±× ÀÛ¾÷À» Àç¼öÇàÇÏÁö ¾Ê°í´Â º¯°æµÉ ¼ö ¾ø´Ù.
+°Å±â¿¡ ³ªÁß ºí·ÏÀÌ ¿¬°áµÇ´Â¸¸Å­, ºí·ÏÀ» º¯°æÇÏ±â À§ÇÑ Àç¼öÇà ÀÛ¾÷Àº ±× µÚ ¸ğµç ºí·Ï±îÁö Æ÷ÇÔÇÑ´Ù.
+ 
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Block -> ºí·Ï
+Prev Hash -> ¾Õºí·Ï ÇØ½Ã
+Nonce -> ÀÓ½Ã°ª
+Tx -> °Å·¡
 
 ---(4-3)---
-The proof-of-work also solves the problem of determining representation in majority decision making.
-If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs.
-Proof-of-work is essentially one-CPU-one-vote.
-The majority decision is represented by the longest chain, which has the greatest proof-of-work effort invested in it.
-If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains.
-To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes.
-We will show later that the probability of a slower attacker catching up diminishes exponentially as subsequent blocks are added.  
+ÀÛ¾÷Áõ¸íÀº ´Ù¼ö°á(majority decision making)ÀÇ ´ëÇ¥¼º ¹®Á¦µµ ÇØ°áÇÑ´Ù.
+IPÁÖ¼Ò´ç 1Ç¥¿¡ ±â¹İÇÑ ´Ù¼ö Á¶°ÇÀÌ¶ó¸é ´©±¸µçÁö ¸¹Àº IP¸¦ ÇÒ´çÇÒ ¼ö ÀÖ´Â ÀÌ¿¡ ÀÇÇØ Àå¾ÇµÉ(subverted) ¼ö ÀÖ´Ù.
+ÀÛ¾÷Áõ¸íÀº ±âº»ÀûÀ¸·Î CPU´ç 1Ç¥´Ù.
+´Ù¼öÀÇ»ç´Â ÃÖ´Ù ÀÛ¾÷Áõ¸í µ¿ÀÛÀÌ ÅõÀÔµÈ °¡Àå ±ä »ç½½·Î ´ëÇ¥µÈ´Ù.
+¸¸ÀÏ ´Ù¼ö CPU ÆÄ¿ö°¡ Á¤Á÷ÇÑ ³ëµå¿¡ ÀÇÇØ ÅëÁ¦µÈ´Ù¸é, °¡Àå Á¤Á÷ÇÑ »ç½½ÀÌ °¡Àå ºü¸£°Ô ´Ã¾î³ª ´Ù¸¥ °æÀï »ç½½À» ¾Ğµµ(outpace)ÇÒ °ÍÀÌ´Ù.
+°ú°Å ºí·ÏÀ» º¯°æÇÏ·Á¸é °ø°İÀÚ´Â ±× ºí·Ï°ú ±× µÚ¸¦ ÀÕ´Â ¸ğµç ºí·ÏÀÇ ÀÛ¾÷Áõ¸íÀ» Àç¼öÇàÇØ¾ß ÇÏ°í ±×·¯¸é¼­ °¡Àå Á¤Á÷ÇÑ ³ëµåµéÀÇ ÀÛ¾÷À» µû¶óÀâ¾Æ ¾ÕÁú·¯¾ß ÇÑ´Ù.
+µÚ¿¡¼­ ¿ì¸®´Â ÀÌ¾îÁö´Â ºí·ÏÀÌ Ãß°¡µÉ¼ö·Ï ´õ ´À¸° °ø°İÀÚ°¡ µû¶óÀâÀ» È®·üÀÌ Áö¼öÀûÀ¸·Î °¨¼ÒÇÔÀ» º¸ÀÌ°Ú´Ù.
 
 ---(4-4)---
-To compensate for increasing hardware speed and varying interest in running nodes over time, the proof-of-work difficulty is determined by a moving average targeting an average number of blocks per hour.
-If they're generated too fast, the difficulty increases.
+½Ã°£ÀÌ Áö³¯¼ö·Ï ³ëµå¸¦ ±¸µ¿ÇÏ´Â ÇÏµå¿ş¾îÀÇ ¼Óµµ Áõ°¡¿Í º¯È­ÇÏ´Â °ü¿©µµ(interest)¸¦ º¸»óÇÏ±â À§ÇØ, ÀÛ¾÷Áõ¸í ³­µµ(difficulty)´Â ½Ã°£´ç Æò±Õ ºí·Ï ¼ö¿¡ µû¸¥ Æò±Õ ¸ñÇ¥Ä¡¸¦ Á¶Á¤ÇØ °áÁ¤µÈ´Ù.
+±×°Íµé(ºí·Ï)ÀÌ ³Ê¹« »¡¸® »ı¼ºµÇ¸é ³­µµ°¡ Áõ°¡ÇÑ´Ù.
 
-5.    Network
+5. ³×Æ®¿öÅ©
 
 ---(5-1)---
-The steps to run the network are as follows: 
+³×Æ®¿öÅ©¸¦ ½ÇÇàÇÏ´Â ´Ü°è´Â ´ÙÀ½°ú °°´Ù:
 
-1) New transactions are broadcast to all nodes.
-2) Each node collects new transactions into a block.
-3) Each node works on finding a difficult proof-of-work for its block.
-4) When a node finds a proof-of-work, it broadcasts the block to all nodes.
-5) Nodes accept the block only if all transactions in it are valid and not already spent.
-6) Nodes express their acceptance of the block by working on creating the next block in the chain, using the hash of the accepted block as the previous hash.  
+1) »õ·Î¿î °Å·¡°¡ ¸ğµç ³ëµå¿¡ ºê·ÎµåÄ³½ºÆ®µÈ´Ù.
+2) °¢ ³ëµå°¡ »õ·Î¿î °Å·¡¸¦ ºí·Ï¿¡ ¼öÁıÇÑ´Ù.
+3) °¢ ³ëµå°¡ ±× ºí·Ï¿¡ ¸Â´Â ³­µµÀÇ ÀÛ¾÷Áõ¸í Ã£±â¿¡ ³ª¼±´Ù.
+4) ³ëµå°¡ ÀÛ¾÷Áõ¸íÀ» Ã£Àº ½ÃÁ¡¿¡, ±×´Â ¸ğµç ³ëµå¿¡°Ô ±× ºí·ÏÀ» ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+5) ³ëµå´Â ¸ğµç °Å·¡°¡ À¯È¿ÇÏ¸ç ¾ÆÁ÷ ÁöºÒµÇÁö ¾Ê¾Ò´Ù´Â Á¶°Ç¿¡ ¸ÂÀ» °æ¿ì¿¡¸¸ ±× ºí·ÏÀ» ½ÂÀÎÇÑ´Ù.
+6) ³ëµå´Â ºí·Ï ½ÂÀÎÀ» Ç¥ÇöÇÏ±â À§ÇØ ¸ÕÁ£¹ø ÇØ½Ã·Î ½ÂÀÎµÈ ºí·ÏÀÇ ÇØ½Ã¸¦ »ç¿ëÇØ »ç½½ ¾È¿¡ ´ÙÀ½ ºí·ÏÀ» »ı¼ºÇÑ´Ù.
 
 ---(5-2)---
-Nodes always consider the longest chain to be the correct one and will keep working on extending it.
-If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or the other first.
-In that case, they work on the first one they received, but save the other branch in case it becomes longer.
-The tie will be broken when the next proof- of-work is found and one branch becomes longer; the nodes that were working on the other branch will then switch to the longer one.
+³ëµå´Â Ç×»ó °¡Àå ±ä »ç½½À» Á¤È®ÇÑ °ÍÀ¸·Î °£ÁÖÇÏ°í ±×°É ÀÕ´Â ÀÛ¾÷À» Áö¼ÓÇÑ´Ù.
+¸¸ÀÏ µÎ ³ëµå°¡ µ¿½Ã¿¡ ´ÙÀ½ ºí·ÏÀÇ »óÀÌÇÑ ¹öÀüÀ» ºê·ÎµåÄ³½ºÆ®ÇÏ¸é, ¾î¶² ³ëµå´Â ±× Áß ÇÏ³ª ¶Ç´Â ´Ù¸¥ °ÍÀ» ¸ÕÀú ¹ŞÀ» ¼ö ÀÖ´Ù.
+ÀÌ °æ¿ì ±×µéÀÌ ¸ÕÀú ¹ŞÀº °ÍÀ» ÀÛ¾÷ÇÏÁö¸¸, ´Ù¸¥ ºĞ±â(branch)µµ ÀúÀåÇØ ±×°Ô ´õ ±æ¾îÁú °æ¿ì¿¡ ´ëºñÇÑ´Ù.
+ÀÌ µ¿Á¡(tie)Àº ´ÙÀ½ ÀÛ¾÷Áõ¸íÀÌ ¹ß°ßµÇ¸é¼­ ±úÁö°í ÇÑÂÊ ºĞ±â°¡ ´õ ±æ¾îÁö¸ç; ´Ù¸¥ ºĞ±â¸¦ ÀÛ¾÷ÇÏ´ø ³ëµå´Â ±× µÚ (ÀÛ¾÷ ´ë»óÀ») ´õ ±ä °ÍÀ¸·Î ÀüÈ¯ÇÑ´Ù.
 
 ---(5-3)---
-New transaction broadcasts do not necessarily need to reach all nodes.
-As long as they reach many nodes, they will get into a block before long.
-Block broadcasts are also tolerant of dropped messages.
-If a node does not receive a block, it will request it when it receives the next block and realizes it missed one.
+»õ·Î¿î °Å·¡ ºê·ÎµåÄ³½ºÆ®°¡ ¹İµå½Ã ¸ğµç ³ëµå¿¡°Ô µµ´ŞÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+ºê·ÎµåÄ³½ºÆ®´Â ¸¹Àº ³ëµå¿¡ µµ´ŞÇÏ´Â¸¸Å­ °ğ ÇÑ ºí·Ï ¾È¿¡ µé¾î°£´Ù.
+ºí·Ï ºê·ÎµåÄ³½ºÆ®´Â ¶ÇÇÑ ´©¶ôµÈ ¸Ş½ÃÁö¿¡ ³»¼ºÀ» °®´Â´Ù.
+¸¸ÀÏ ³ëµå°¡ ºí·ÏÀ» ¹ŞÁö ¸øÇÏ¸é ±×´Â ´ÙÀ½ ºí·ÏÀ» ¹ŞÀ» ¶§ ´©¶ôµÈ °ÍÀ» ¾Ë¾ÆÂ÷¸®°í ±×°É ¿äÃ»ÇÑ´Ù.
 
-6.    Incentive
+6. ÀÎ¼¾Æ¼ºê
 
 ---(6-1)---
-By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block.
-This adds an incentive for nodes to support the network, and provides a way to initially distribute coins into circulation, since there is no central authority to issue them.
-The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. 
-In our case, it is CPU time and electricity that is expended.  
+°ü·Ê»ó ºí·Ï ¾ÈÀÇ Ã¹ °Å·¡´Â ºí·ÏÀ» ¸¸µç ÀÌÀÇ ¸òÀÌ µÉ »õ È­Æó·Î ½ÃÀÛÇÏ´Â Æ¯º°ÇÑ °Å·¡´Ù.
+ÀÌ´Â È­Æó¸¦ ¹ßÇàÇÏ´Â Áß¾Ó±â°ü ¾øÀÌ, ³ëµå°¡ ³×Æ®¿öÅ©¸¦ Áö¿øÇÒ ÀÎ¼¾Æ¼ºê¸¦ ´õÇØ ÁÖ¸ç ÃÊ±â¿¡ ¹ßÇàÇÑ È­Æó¸¦ À¯ÅëÇÒ ¹æ¹ıÀ» Á¦°øÇÑ´Ù.
+»õ È­Æó ÀÏÁ¤·®À» ²ÙÁØÈ÷ Ãß°¡ÇÏ´Â °ÍÀº ±İ Ã¤±¼ÀÚ°¡ À¯ÅëÇÏ´Â ±İÀ» Ãß°¡ÇÏ±â À§ÇØ ÀÚ¿øÀ» ¼ÒºñÇÏ´Â °Í°ú À¯»çÇÏ´Ù.
+¿ì¸®ÀÇ °æ¿ì ¼ÒºñµÇ´Â °ÍÀº CPU ½Ã°£°ú Àü±â´Ù.
 
 ---(6-2)---
-The incentive can also be funded with transaction fees.
-If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction.
-Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely inflation free.  
+ÀÌ ÀÎ¼¾Æ¼ºê´Â ¶Ç °Å·¡ ¼ö¼ö·á(transaction fees) Àç¿øÀÌ µÉ ¼ö ÀÖ´Ù.
+¸¸ÀÏ °Å·¡¿¡¼­ µµÃâµÈ °¡Ä¡°¡ ÅõÀÔµÈ °¡Ä¡º¸´Ù ÀÛ´Ù¸é, ±× Â÷ÀÌ°¡ °Å·¡¸¦ Æ÷ÇÔÇÑ ºí·ÏÀÇ ÀÎ¼¾Æ¼ºê °¡Ä¡¿¡ ´õÇØÁú °Å·¡ ¼ö¼ö·á´Ù.
+ÇÑ ¹ø ¼±°áµÈ È­Æó ¼ö°¡ À¯ÅëµÇ¸é, ÀÌ ÀÎ¼¾Æ¼ºê´Â ¸ğµÎ °Å·¡ ¼ö¼ö·á·Î ÀüÈ¯µÅ ÀÎÇÃ·¹ÀÌ¼Ç¿¡¼­ ¿ÏÀüÈ÷ ÀÚÀ¯·Î¿öÁú ¼ö ÀÖ´Ù.
 
 ---(6-3)---
-The incentive may help encourage nodes to stay honest.
-If a greedy attacker is able to assemble more CPU power than all the honest nodes, he would have to choose between using it to defraud people by stealing back his payments, or using it to generate new coins.
-He ought to find it more profitable to play by the rules, such rules that favour him with more new coins than everyone else combined, than to undermine the system and the validity of his own wealth.
+ÀÌ ÀÎ¼¾Æ¼ºê ³ëµåµéÀÌ °è¼Ó Á¤Á÷ÇÏ±æ À¯µµÇÏ´Â µ¥ µµ¿òÀ» ÁÙ ¼ö ÀÖ´Ù.
+¸¸ÀÏ Å½¿å½º·¯¿î °ø°İÀÚ°¡ ¸ğµç Á¤Á÷ÇÑ ³ëµåº¸´Ù ´õ ¸¹Àº CPU ÆÄ¿ö¸¦ ¸ğÀ» ¼ö ÀÖ´Ù¸é, ±×´Â ±×°É ÀÚ½ÅÀÇ °áÁ¦¸¦ µµ·Î ÈÉÃÄ »ç¶÷µéÀ» ¼ÓÀÌ´Â µ¥ ¾²´Â °Í, ¶Ç´Â »õ·Î¿î È­Æó¸¦ ¸¸µé¾î³»´Â µ¥ ¾²´Â °Í »çÀÌ¿¡¼­ ¼±ÅÃÇØ¾ß ÇÑ´Ù.
+±×´Â ±ÔÄ¢´ë·Î ¿òÁ÷ÀÌ´Â °Ô ´õ ÀÌµæÀÓÀ» ¾Ë°Ô µÅ ÀÖ´Âµ¥, ±ÔÄ¢Àº ±×¿¡°Ô ´Ù¸¥ ¸ğµÎÀÇ ¸òÀ» ÇÕÄ£ °Íº¸´Ù, ½Ã½ºÅÛ°ú ±×°¡ º¸À¯ÇÑ ºÎÀÇ À¯È¿¼ºÀ» ÇØÄ¡´Â °Íº¸´Ù ´õ ¸¹Àº »õ È­Æó¸¦ º£Ç¬´Ù.
 
-7.    Reclaiming Disk Space
+7. µğ½ºÅ© °ø°£ È¸¼ö
 
 ---(7-1)---
-Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space.
-To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash.
-Old blocks can then be compacted by stubbing off branches of the tree.
-The interior hashes do not need to be stored.
+È­Æó ¾ÈÀÇ ÃÖÁ¾ °Å·¡°¡ ÃæºĞÇÑ ºí·Ï¿¡ ¹¯È÷¸é, ±× Àü¿¡ ÁöºÒµÈ °Å·¡´Â µğ½ºÅ© °ø°£À» Àı¾àÇÏ±â À§ÇØ Æó±âµÉ ¼ö ÀÖ´Ù.
+ºí·ÏÀÇ ÇØ½Ã¸¦ ±úÁö ¾Ê°í ÀÌ°É ÃËÁøÇÏ±â À§ÇØ, °Å·¡´Â ¸ÓÅ¬Æ®¸®(Merkle Tree)[7][2][5]·Î ÇØ½ÃµÇ¸ç, ±× ·çÆ®(root)¸¸ ºí·ÏÀÇ ÇØ½Ã ¾È¿¡ Æ÷ÇÔµÈ´Ù.
+±×·¯¸é ¿À·¡µÈ ºí·ÏÀº Æ®¸®ÀÇ ºĞ±â¸¦ ÃÄ³¿À¸·Î½á ÀÛ¾ÆÁú ¼ö ÀÖ´Ù.
+³»ºÎ ÇØ½Ã´Â ÀúÀåµÉ ÇÊ¿ä°¡ ¾ø´Ù.
 
-(in-image text)
-Block
-Block Header (Block Hash)
-Prev Hash
-Nonce
-Root Hash
-Transaction Hashed in a Merkle Tree
-After Pruning Tx0-2 from the Block
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Block -> ºí·Ï
+Block Header (Block Hash) -> ºí·ÏÇì´õ(ºí·ÏÇØ½Ã)
+Prev Hash -> ¾Õºí·Ï ÇØ½Ã
+Nonce -> ÀÓ½Ã°ª
+Root Hash -> ·çÆ®ÇØ½Ã
+Transaction Hashed in a Merkle Tree -> ¸ÓÅ¬Æ®¸®·Î ÇØ½ÃµÈ °Å·¡
+After Pruning Tx0-2 from the Block -> ºí·ÏÀÇ 0-2¹ø °Å·¡ ºĞ±â¸¦ ÃÄ³½ µÚ
 
 ---(7-2)---
-A block header with no transactions would be about 80 bytes.
-If we suppose blocks are generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year.
-With computer systems typically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of 1.2GB per year, storage should not be a problem even if the block headers must be kept in memory.
+°Å·¡°¡ ¾ø´Â ºí·Ï Çì´õ´Â ¾à 80¹ÙÀÌÆ®°¡ µÈ´Ù.
+ºí·ÏÀÌ 10ºĞ¸¶´Ù ¸¸µé¾îÁø´Ù°í °¡Á¤ÇÏ¸é, 80¹ÙÀÌÆ® * 6 * 24 * 365 = ¿¬°£ 4.2MB´Ù.
+2008³âºÎÅÍ Åë»óÀûÀ¸·Î ÆÇ¸ÅµÇ´Â RAM 2GBÂ¥¸® ÄÄÇ»ÅÍ ½Ã½ºÅÛ, ±×¸®°í ÇöÀç ¿¬°£ 1.2GB¾¿ ¼ºÀåÀ» ¿¹ÃøÇÏ´Â ¹«¾îÀÇ ¹ıÄ¢À¸·Î º¸¸é, ¸¸ÀÏ ºí·Ï Çì´õ°¡ ¸Ş¸ğ¸®¿¡ º¸Á¸µÅ¾ß ÇÑ´Ù´õ¶óµµ ÀúÀå°ø°£Àº ¹®Á¦°¡ µÇÁö ¾Ê´Â´Ù.
 
-8.    Simplified Payment Verification
+8. °£¼ÒÈ­ÇÑ °áÁ¦ °ËÁõ
 
 ---(8-1)---
-It is possible to verify payments without running a full network node.
-A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in.
-He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
+°áÁ¦ °ËÁõÀº ÀüÃ¼ ³×Æ®¿öÅ© ³ëµå¸¦ ±¸µ¿ÇÏÁö ¾Ê°íµµ °¡´ÉÇÏ´Ù.
+»ç¿ëÀÚ´Â ±×°¡ ÃÖÀå ÀÛ¾÷Áõ¸í »ç½½À» °¡Á³´Ù°í È®½ÅÇÒ ¶§±îÁö ³×Æ®¿öÅ© ³ëµå¸¦ Á¶È¸ÇØ, ¾òÀ» ¼ö ÀÖ´Â °¡Àå ±ä »ç½½ÀÇ ºí·Ï Çì´õ »çº»À» À¯ÁöÇÏ¸é¼­, ÇØ´ç °Å·¡¸¦ Å¸ÀÓ½ºÅÆÇÁ°¡ ÂïÈù ºí·Ï¿¡ ¿¬°áÇÑ ¸ÓÅ¬ ºĞ±â¸¦ ¾ò±â¸¸ ÇÏ¸é µÈ´Ù.
+±×´Â ÀÚ½ÅÀÇ °Å·¡¸¦ °Ë»çÇÒ ¼ö´Â ¾øÁö¸¸ ±×°É »ç½½ ³» Àå¼Ò¿¡ ¿¬°áÇÔÀ¸·Î½á, ³×Æ®¿öÅ© ³ëµå°¡ ±×°É ¹Ş¾ÆµéÀÎ °Í°ú, ÀÌÈÄ ±×°Ô ¹Ş¾Æµé¿©Á³À½À» È®ÀÎÇÑ µÚ Ãß°¡µÈ ºí·ÏÀ» º¼ ¼ö ÀÖ´Ù.
 
-(in-image text)
-Longest Proof-of-Work Chain
-Block Header
-Prev Hash
-Nonce
-Merkle Root
-Merkle Branch for Tx3
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Longest Proof-of-Work Chain -> ÃÖÀå ÀÛ¾÷Áõ¸í »ç½½
+Block Header -> ºí·ÏÇì´õ
+Prev Hash -> ¾Õºí·Ï ÇØ½Ã
+Nonce -> ÀÓ½Ã°ª
+Merkle Root -> ¸ÓÅ¬·çÆ®
+Merkle Branch for Tx3 -> °Å·¡3À» À§ÇÑ ¸ÓÅ¬ ºĞ±â
 
 ---(8-2)---
-As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker.
-While network nodes can verify transactions for themselves, the simplified method can be fooled by an attacker's fabricated transactions for as long as the attacker can continue to overpower the network.
-One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency.
-Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
+ÀÌÃ³·³, ³×Æ®¿öÅ©¸¦ Á¦¾îÇÏ´Â ³ëµå°¡ Á¤Á÷ÇÑ ÇÑ °ËÁõÀº ¹ÏÀ»¸¸ÇÏÁö¸¸, ¸¸ÀÏ ³×Æ®¿öÅ©°¡ °ø°İÀÚ¿¡ ÀÇÇØ °úÁ¡µÈ´Ù¸é ´õ Ãë¾àÇØÁø´Ù.
+³×Æ®¿öÅ© ³ëµå°¡ °Å·¡¸¦ ÀÚÃ¼ °ËÁõÇÒ ¼ö ÀÖ±ä ÇÏÁö¸¸, °£¼ÒÈ­ÇÑ ¹æ¹ıÀº °ø°İÀÚ°¡ ³×Æ®¿öÅ©¸¦ °è¼Ó °úÁ¡ÇÒ ¼ö ÀÖ´Â ÇÑ ±×°¡ Á¶ÀÛÇÑ °Å·¡¿¡ ÀÇÇØ ±â¸¸´çÇÒ ¼ö ÀÖ´Ù.
+ÀÌ¸¦ ¹æ¾îÇÏ±â À§ÇÑ ÇÑ°¡Áö Àü·«Àº ³×Æ®¿öÅ© ³ëµå°¡ À¯È¿ÇÏÁö ¾ÊÀº ºí·ÏÀ» Å½Áö½Ã ±×·ÎºÎÅÍ °æ°í¸¦ ¹Ş¾Æ, »ç¿ëÀÚÀÇ ¼ÒÇÁÆ®¿ş¾î°¡ ±× ¿ÂÀüÇÑ ºí·ÏÀ» ³»·Á¹Ş°Ô ÇÏ°í °æ°íµÈ °Å·¡¿¡ ±× ºÒÀÏÄ¡(inconsistency)¸¦ È®ÀÎÇÏµµ·Ï ÇÏ´Â °ÍÀÌ´Ù.
+¼ö±İÀÌ ºó¹øÇÑ ºñÁî´Ï½º´Â ¾Æ¸¶µµ ¿©ÀüÈ÷ ´õ µ¶¸³ÀûÀÎ º¸¾È°ú ´õ ºü¸¥ °ËÁõÀ» À§ÇØ ±×µéÀÇ ÀÚÃ¼ ³ëµå¸¦ ±¸µ¿ÇÏ±æ ¿øÇÒ °ÍÀÌ´Ù.
 
-9.    Combining and Splitting Value
+9. °¡Ä¡ ÇÕÄ¡±â¿Í ³ª´©±â
 
 ---(9-1)---
-Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer.
-To allow value to be split and combined, transactions contain multiple inputs and outputs.
-Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
+È­Æó¸¦ µ¶¸³ÀûÀ¸·Î ´Ù·ç´Â °ÍÀº °¡´ÉÇÏ´õ¶óµµ, ¼Û±İ¿¡ ¸ğµç Ç¬µ·(every cent)À» º°µµ °Å·¡·Î ¸¸µå´Â °Ç ¹«¸®ÇÑ ÀÏÀÌ´Ù.
+°¡Ä¡¸¦ ³ª´©°í ÇÕÄ¥ ¼ö ÀÖµµ·Ï, °Å·¡´Â º¹¼öÀÇ ÀÔÃâ±İÀ» Æ÷ÇÔÇÑ´Ù.
+ÀÏ¹İÀûÀ¸·Î ÀÔ±İÀº ´õ Å« ¸ÕÁ£¹ø °Å·¡ÀÇ ´Ü¼ö ÀÔ±İ ¶Ç´Â ´õ ÀÛÀº ¾çÀ» °áÇÕÇÑ º¹¼ö ÀÔ±İÀÌ¸ç,  Ãâ±İÀº ÁöºÒ¿ë Ãâ±İ ÇÏ³ª¿Í ¸¸ÀÏ ÀÖ´Ù¸é ¼Û±İÀÎ(sender)¿¡°Ô µ¹·ÁÁÙ °Å½º¸§µ· Ãâ±İ ÇÏ³ª, ÀÌ·¸°Ô ¸¹¾Æ¾ß µÑÀÌ´Ù.
 
-(in-image text)
-Transaction -> ê±°ë˜
-In -> ì…ê¸ˆ
-Out -> ì¶œê¸ˆ
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Transaction -> °Å·¡
+In -> ÀÔ±İ
+Out -> Ãâ±İ
 
 ---(9-2)---
-It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here.
-There is never the need to extract a complete standalone copy of a transaction's history.
+ÆîÄ£ ºÎÃ¤²Ã(fan-out)Ã³·³, °Å·¡°¡ ¿©·¯ °Å·¡¿¡ ÀÇÁ¸ÇÏ°í ±× ¿©·¯ °Å·¡°¡ ´õ ¸¹Àº °Å·¡¿¡ ÀÇÁ¸ÇÏ´Â °ÍÀº ¹®Á¦°¡ µÇÁö ¾Ê´Â´Ù´Â °Í¿¡ ÁÖ¸ñÇØ¾ß ÇÑ´Ù.
+¿ÏÀü µ¶¸³µÈ(standalone) °Å·¡ ³»¿ª »çº»À» ÃßÃâÇØ¾ß ÇÒ ÇÊ¿ä´Â ÀüÇô ¾ø´Ù.
 
-10.    Privacy
+10. ÇÁ¶óÀÌ¹ö½Ã
 
 ---(10-1)---
-The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party.
-The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous.
-The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone.
-This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
-
-(in-image text)
-Traditional Privacy Model
-Identities
-Transactions
-Trusted Third Party
-Counter party
-Public
-New Privacy Model
+ÀüÅëÀûÀÎ ÀºÇà ¸ğµ¨Àº Âü¿© ´ç»çÀÚ(the parties involved)¿Í ½Å·Ú¹Ş´Â Á¦3ÀÚ¿¡°Ô Á¤º¸ Á¢±ÙÀ» Á¦ÇÑÇÔÀ¸·Î½á ÀÏÁ¤ ¼öÁØ ÇÁ¶óÀÌ¹ö½Ã¸¦ ´Ş¼ºÇÑ´Ù.
+ÀÌ ¹æ¹ıÀº ¸ğµç °Å·¡¸¦ °ø°³ÇÒ ÇÊ¿ä¼º¿¡ µû¶ó ¹èÁ¦µÇÁö¸¸, °ø°³Å° ÀÍ¸í¼ºÀ» º¸Á¸ÇØ ´Ù¸¥ Àå¼Ò¿¡¼­ Á¤º¸ÀÇ Èå¸§À» ²÷´Â °É·Î ¿©ÀüÈ÷ ÇÁ¶óÀÌ¹ö½Ã°¡ º¸ÀåµÉ ¼ö ÀÖ´Ù.
+´ëÁßÀº ´©±º°¡°¡ ´Ù¸¥ ´©±º°¡¿¡°Ô º¸³»´Â ±İ¾×À» º¼ ¼ö ÀÖÁö¸¸, ±× °Å·¡¿¡ ¿¬°áµÈ ´©±º°¡¿¡ ´ëÇÑ Á¤º¸´Â º¼ ¼ö ¾ø´Ù.
+ÀÌ´Â Áõ±Ç°Å·¡¼Ò¿¡¼­ °ø°³µÇ´Â Á¤º¸ ¼öÁØ°ú ºñ½ÁÇÏ°Ô, °³º° °Å·¡ ½Ã°¢°ú ±Ô¸ğ¸¦ ³ªÅ¸³»´Â "Å×ÀÌÇÁ(tape)"´Â °ø°³µÇÁö¸¸, ±× ´ç»çÀÚ°¡ ´©±¸ÀÎÁö ¾ËÁö´Â ¸øÇÏ´Â °ÍÀÌ´Ù.
+ 
+(ÀÌ¹ÌÁö³» ÅØ½ºÆ®)
+Traditional Privacy Model -> ÀüÅëÀû ÇÁ¶óÀÌ¹ö½Ã ¸ğµ¨
+Identities -> ½Å¿ø
+Transactions -> °Å·¡
+Trusted Third Party -> ½Å·Ú¹Ş´Â Á¦3ÀÚ
+Counter party -> °Å·¡»ó´ë
+Public -> °øÁß
+New Privacy Model -> »õ ÇÁ¶óÀÌ¹ö½Ã ¸ğµ¨
 
 ---(10-2)---
-As an additional firewall, a new key pair should be used for each transaction to keep them from being linked to a common owner.
-Some linking is still unavoidable with multi-input transactions, which necessarily reveal that their inputs were owned by the same owner.
-The risk is that if the owner of a key is revealed, linking could reveal other transactions that belonged to the same owner.
+Ãß°¡ ¹æÈ­º®À¸·Î, »õ·Î¿î Å° ½ÖÀÌ °¢ °Å·¡¸¶´Ù °øÅëµÈ ¼ÒÀ¯ÀÚ¿Í ¿¬°áÀ» À¯ÁöÇÏµµ·Ï »ç¿ëµÅ¾ß ÇÑ´Ù.
+¾î¶² ¿¬°áÀº ´ÙÁßÀÔ·Â °Å·¡½Ã ¿©ÀüÈ÷ ºÒ°¡ÇÇÇÏ°Ô ±× ÀÔ·ÂÀÌ µ¿ÀÏ ¼ÒÀ¯ÀÚÀÇ °ÍÀÓÀ» ÇÊ¿¬ÀûÀ¸·Î µå·¯³½´Ù.
+¸¸ÀÏ Å° ¼ÒÀ¯ÀÚ°¡ °ø°³µÇ¸é, ¿¬°áÀº ´Ù¸¥ °Å·¡µµ µ¿ÀÏ ¼ÒÀ¯ÀÚ¿¡°Ô ¼ÓÇÏ´Â °ÍÀÓÀ» ³ëÃâÇÒ À§ÇèÀÌ ÀÖ´Ù.
 
-11.    Calculations
+11. °è»ê
 
 ---(11-1)---
-We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain.
-Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker.
-Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them.
-An attacker can only try to change one of his own transactions to take back money he recently spent. 
+Á¤Á÷ÇÑ »ç½½º¸´Ù ´õ »¡¸® ´ëÃ¼ »ç½½À» ¸¸µé¾î³»·Á´Â °ø°İÀÚÀÇ ½Ã³ª¸®¿À¸¦ °í·ÁÇØ º¸ÀÚ.
+¸¸ÀÏ ÀÌ·± ½Ãµµ°¡ ¼º°øÇÑ´Ù ÇÏ´õ¶óµµ, ±×°Ô ¾Æ¹«°Íµµ ¾ø´Â °÷¿¡¼­ °¡Ä¡¸¦ ¸¸µé¾î³»°Å³ª °ø°İÀÚ°¡ ¼ÒÀ¯ÇÑ Àûµµ ¾ø´Â µ·À» ¾ò°Ô ¸¸µå´Â ½ÄÀ¸·Î ÀÌ ½Ã½ºÅÛÀ» ¹«´Ü º¯°æµÇµµ·Ï Çã¿ëÇÏÁø ¾Ê´Â´Ù.
+³ëµå´Â À¯È¿ÇÏÁö ¾ÊÀº °Å·¡¸¦ °áÁ¦·Î ¹Ş¾ÆµéÀÌÁö ¾ÊÀ¸¸ç, Á¤Á÷ÇÑ ³ëµå´Â ±×°É Æ÷ÇÔÇÏ´Â ºí·ÏÀ» Àı´ë ¹Ş¾ÆµéÀÌÁö ¾Ê´Â´Ù.
+°ø°İÀÚ´Â ¿À·ÎÁö ÀÚ½ÅÀÇ °Å·¡¿¡¼­ ±×°¡ ÃÖ±Ù ÁöÃâÇÑ µ·À» °ÅµÖµéÀÌ´Â °Í ÇÏ³ª¸¸À» ¹Ù²Ü ¼ö ÀÖ´Ù.
 
 ---(11-2)---
-The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk.
-The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.
+Á¤Á÷ÇÑ »ç½½°ú °ø°İÀÚ »ç½½°£ÀÇ °æÁÖ´Â ÀÌÇ×ÀÓÀÇº¸Çà(Binomial Random Walk)À¸·Î Æ¯Â¡ÁöÀ» ¼ö ÀÖ´Ù.
+¼º°ø ÀÌº¥Æ®´Â Á¤Á÷ÇÑ »ç½½ÀÌ ±× ¿ìÀ§(lead)¸¦ +1¸¸Å­ ´Ã¸®´Â ºí·Ï ÇÏ³ª¸¦ ¿¬ÀåÇÑ °ÍÀÌ°í, ½ÇÆĞ ÀÌº¥Æ®´Â °ø°İÀÚ »ç½½ÀÌ ±× °İÂ÷¸¦ -1¸¸Å­ Á¼È÷´Â ºí·Ï ÇÏ³ª¸¦ ¿¬ÀåÇÑ °ÍÀÌ´Ù.
 
 ---(11-3)---
-The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem.
-Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven.
-We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]: 
+°ø°İÀÚ°¡ ÁÖ¾îÁø ¿­¼¼¸¦ µû¶óÀâÀ» È®·üÀº µµ¹Ú²ÛÀÇ ÆÄ»ê(Gambler's Ruin) ¹®Á¦¿Í À¯»çÇÏ´Ù.
+µµ¹Ú²ÛÀÌ ¹«Á¦ÇÑÀÇ ½Å¿ëÀ» °®°í ¿­¼¼·Î ½ÃÀÛÇÏ°í ¼ÕÀÍºĞ±â(breakeven)¿¡ µµ´ŞÇÏ·Á´Â ½Ãµµ¸¦ ÀáÀçÀûÀ¸·Î ¹«ÇÑÇÑ È½¼ö¿¡ °ÉÃÄ ½ÃÇàÇÑ´Ù°í °¡Á¤ÇØ º¸ÀÚ.
+¿ì¸®´Â ±×°¡ Á¡Â÷ ¼ÕÀÍºĞ±â¿¡ µµ´ŞÇÒ È®·ü, ´Ù½Ã¸»ÇØ °ø°İÀÚ°¡ Á¤Á÷ÇÑ »ç½½À» µû¶óÀâÀ» È®·üÀ» ´ÙÀ½°ú °°ÀÌ °è»êÇÒ ¼ö ÀÖ´Ù [8]: 
 
-p = probability an honest node finds the next block 
-q = probability the attacker finds the next block 
-qz = probability the attacker will ever catch up from z blocks behind
+p = Á¤Á÷ÇÑ ³ëµå°¡ ´ÙÀ½ ºí·ÏÀ» ¹ß°ßÇÒ È®·ü
+q = °ø°İÀÚ°¡ ´ÙÀ½ ºí·ÏÀ» ¹ß°ßÇÒ È®·ü
+qz = °ø°İÀÚ°¡ zºí·Ï µÚ¿¡¼­ºÎÅÍ µû¶óÀâÀ» È®·ü
 
-(formula)
+(¼ö½Ä)
 
 ---(11-4)---
-Given our assumption that p > q, the probability drops exponentially as the number of blocks the attacker has to catch up with increases.
-With the odds against him, if he doesn't make a lucky lunge forward early on, his chances become vanishingly small as he falls further behind. 
+p > q¶ó °¡Á¤ÇÏ¸é, °ø°İÀÚ°¡ µû¶óÀâ¾Æ¾ß ÇÏ´Â ºí·Ï ¼ö°¡ ´Ã¾î³¯¼ö·Ï ±×·² ¼ö ÀÖ´Â È®·üÀº Áö¼öÀûÀ¸·Î °¨¼ÒÇÑ´Ù.
+±×¿¡°Ô ÁÖ¾îÁø Á¶°Ç»ó, ¸¸ÀÏ ±×°¡ ÃÊ±â¿¡ ¿îÁÁ°Ô ¾ÕÀ¸·Î Ä¡°í³ª°¡Áö ¸øÇÑ´Ù¸é, ±×ÀÇ ±âÈ¸´Â ±×°¡ µÚÃÄÁú¼ö·Ï º¸ÀÌÁö ¾ÊÀ»¸¸Å­ ÀÛ¾ÆÁø´Ù. 
 
 ---(11-5)---
-We now consider how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction.
-We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed.
-The receiver will be alerted when that happens, but the sender hopes it will be too late. 
+ÀÌÁ¦ ¼Û±İÀÎÀÌ »õ·Î¿î °Å·¡¸¦ º¯°æÇÒ ¼ö ¾ø´Ù°í ÃæºĞÈ÷ È®½ÅÇÏ±â Àü±îÁö ¼öÃëÀÎ(recipient)ÀÌ ¾ó¸¶³ª ¿À·¡ ±â´Ù·Á¾ßÇÒÁö °í·ÁÇØ º¸ÀÚ.
+¼Û±İÀÎÀÌ ÀÚ½ÅÀÌ ÁöºÒÇßÀ½À» ¼öÃëÀÎÀ¸·ÎÇÏ¿©±İ ÇÑµ¿¾È ¹Ï°Ô ÇÑ ´ÙÀ½, ½Ã°£ÀÌ Á» Áö³ª¼­ ÁöºÒ±İÀ» È¸¼öÇÏµµ·Ï ¸¸µé·Á´Â °ø°İÀÚ¶ó°í °¡Á¤ÇÑ´Ù.
+ÇØ´ç ¼ö½ÅÀÚ(receiver)´Â ±×·± ÀÏÀÌ »ı±æ ¶§ °æ°í¸¦ ¹Ş°ÚÁö¸¸, ¼Û±İÀÎÀº ±×°Ô ´Ê±â¸¦ ¹Ù¶õ´Ù. 
 
 ---(11-6)---
-The receiver generates a new key pair and gives the public key to the sender shortly before signing.
-This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment.
-Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction. 
+¼ö½ÅÀÚ´Â »õ·Î¿î Å° ½ÖÀ» »ı¼ºÇÏ°í ¼­¸í Á÷Àü¿¡ ¼Û±İÀÎ¿¡°Ô °ø°³Å°¸¦ ÁØ´Ù.
+ÀÌ´Â ¼Û±İÀÎÀÌ ¿îÁÁ°Ô ÃæºĞÈ÷ ¾Õ¼³ ¶§±îÁö °è¼Ó ±× ÀÛ¾÷À» ¼öÇàÇÔÀ¸·Î½á ¹Ì¸® ºí·ÏÀÇ »ç½½À» ÁØºñÇÏÁö ¸øÇÏ°Ô ¹æÁöÇÏ°í, ±× ½ÃÁ¡¿¡ °Å·¡¸¦ ½ÇÇàÇÑ´Ù.
+°Å·¡°¡ ÇÑ ¹ø ¹ß½ÅµÇ¸é, ÀÌ ºÎÁ¤Á÷ÇÑ(dishonest) ¼Û±İÀÎÀº ¸ô·¡ ±×ÀÇ °Å·¡¸¦ ´ë½ÅÇÒ ¹öÀüÀ¸·Î »ç½½ ÀÛ¾÷À» º´ÇàÇÏ±â ½ÃÀÛÇÑ´Ù. 
 
 ---(11-7)---
-The recipient waits until the transaction has been added to a block and z blocks have been linked after it.
-He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:
+¼ö½ÅÀÚ´Â ÇØ´ç °Å·¡°¡ ºí·Ï¿¡ Ãß°¡µÇ°í ±× µÚ¿¡ zºí·ÏÀÌ ¿¬°áµÉ ¶§±îÁö ±â´Ù¸°´Ù.
+±×´Â °ø°İÀÚ°¡ (ºí·Ï Ã³¸®¸¦) ÁøÃ´½ÃÅ² ±Ô¸ğ¸¦ ¾ËÁö ¸øÇÏÁö¸¸, Á¤Á÷ÇÑ ºí·ÏÀÌ ¿¹»óµÇ´Â ºí·Ï´ç ½Ã°£ Æò±ÕÄ¡¸¦ µû¸¥´Ù°í °¡Á¤ÇÏ¸é, °ø°İÀÚÀÇ ÀáÀçÀû ÁøÃ´µµ´Â ±â´ë°ªÀ» °®´Â Çª¾Æ¼Û ºĞÆ÷(Poisson distribution)°¡ µÉ °ÍÀÌ´Ù:
 
-(formula)
+(¼ö½Ä)
 
 (11-8)
-To get the probability the attacker could still catch up now, we multiply the Poisson density for each amount of progress he could have made by the probability he could catch up from that point:
+ÇöÀç °ø°İÀÚ°¡ ¿©ÀüÈ÷ µû¶óÀâÀ» ¼ö ÀÖ´Â È®·üÀ» ¾ò±â À§ÇØ, ±×°¡ ÇØ´ç ½ÃÁ¡ºÎÅÍ µû¶óÀâÀ» ¼ö ÀÖ´Â È®·ü·Î ¸¸µé¾î³¾ °¢ ÁøÃ´ ±Ô¸ğº° Çª¾Æ¼Û ¹Ğµµ¸¦ °öÇÑ´Ù:
 
-(formula)
+(¼ö½Ä)
 
-Rearranging to avoid summing the infinite tail of the distribution...
+ºĞÆ÷ÀÇ ¹«ÇÑ²¿¸® ÇÕ»êÀ» ÇÇÇÏµµ·Ï Á¤¸®ÇÏ°í¡¦
 
-(formula)
+(¼ö½Ä)
 
-Converting to C code...
+C ÄÚµå·Î ¹Ù²ã¼­¡¦
 
 #include <math.h>
 double AttackerSuccessProbability(double q, int z)
@@ -298,36 +298,36 @@ double AttackerSuccessProbability(double q, int z)
     }     return sum;
 }
 
-Running some results, we can see the probability drop off exponentially with z.
+°á°ú¸¦ ½ÇÇàÇÏ¸é, z¿¡ µû¶ó Áö¼öÀûÀ¸·Î °¨¼ÒÇÏ´Â È®·üÀ» º¼ ¼ö ÀÖ´Ù.
 
 q=0.1 z=0    P=1.0000000 z=1    P=0.2045873 z=2    P=0.0509779 z=3    P=0.0131722 z=4    P=0.0034552 z=5    P=0.0009137 z=6    P=0.0002428 z=7    P=0.0000647 z=8    P=0.0000173 z=9    P=0.0000046 z=10   P=0.0000012
 q=0.3 z=0    P=1.0000000 z=5    P=0.1773523 z=10   P=0.0416605 z=15   P=0.0101008 z=20   P=0.0024804 z=25   P=0.0006132 z=30   P=0.0001522 z=35   P=0.0000379 z=40   P=0.0000095 z=45   P=0.0000024 z=50   P=0.0000006
 
-Solving for P less than 0.1%...
+0.1% ¹Ì¸¸ÀÇ P¸¦ Ç®¸é¡¦
 
 P < 0.001 q=0.10   z=5 q=0.15   z=8 q=0.20   z=11 q=0.25   z=15 q=0.30   z=24 q=0.35   z=41 q=0.40   z=89 q=0.45   z=340
 
-12.    Conclusion
+12. °á·Ğ
 
 ---(12-1)---
-We have proposed a system for electronic transactions without relying on trust.
-We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending.
-To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power.
-The network is robust in its unstructured simplicity.
-Nodes work all at once with little coordination.
-They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis.
-Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone.
-They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them.
-Any needed rules and incentives can be enforced with this consensus mechanism.
+¿ì¸®´Â ½Å·Ú¿¡ ÀÇÁ¸ÇÏÁö ¾Ê´Â ÀüÀÚ°Å·¡¿ë ½Ã½ºÅÛÀ» Á¦¾ÈÇß´Ù.
+°­·ÂÇÑ ¼ÒÀ¯±Ç ÅëÁ¦¸¦ Á¦°øÇÏ´Â µğÁöÅĞ ¼­¸íÀ¸·Î ¸¸µç È­Æó(coins made from digital signatures)ÀÇ À¯·ÂÇÑ ÇÁ·¹ÀÓ¿öÅ©·Î ½ÃÀÛÇßÁö¸¸, ÀÌ´Â ÀÌÁßÁöºÒ ¹æÁö¼ö´Ü ¾øÀÌ´Â ºÒ¿ÏÀüÇÏ´Ù.
+ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇØ, ¿ì¸®´Â Á¤Á÷ÇÑ ³ëµå°¡ CPU ÆÄ¿ö ´ëºÎºĞÀ» Á¦¾îÇÑ´Ù¸é °ø°İÀÚ°¡ Àü»êÀûÀ¸·Î º¯°æÇÏ±â°¡ ±İ¼¼ ºñÇö½ÇÀûÀÌ µÇ´Â ÀÛ¾÷Áõ¸íÀ» »ç¿ëÇØ °ø°³µÈ °Å·¡ ÀÌ·ÂÀ» ±â·ÏÇÏ´Â °³ÀÎ ´ë °³ÀÎ ³×Æ®¿öÅ©¸¦ Á¦¾ÈÇß´Ù.
+ÀÌ ³×Æ®¿öÅ©ÀÇ °ß°íÇÔÀº ±× Á¤ÇüÈ­ÇÏÁö¾ÊÀº ´Ü¼ø¼º(unstructured simplicity)¿¡ ÀÖ´Ù.
+³ëµå´Â °ÅÀÇ Á¶Á¤(coordination)¾øÀÌ ÇÑ ¹ø¿¡ ¸ğµÎ µ¿ÀÛÇÑ´Ù.
+ÀÌµéÀº ¸Ş½ÃÁö°¡ °æ·Î¸¦ ÁöÁ¤¹Ş¾Æ ¾î¶² Æ¯Á¤ À§Ä¡·Î °¡´Â °Ô ¾Æ´Ï¶ó ´ÜÁö ÃÖ¼±ÀÇ ³ë·ÂÀ» ´ÙÇØ Àü´ŞµÇ¸é ±×¸¸ÀÌ±â ¶§¹®¿¡ ½Äº°µÉ ÇÊ¿ä°¡ ¾ø´Ù.
+³ëµå´Â ÀÇÁö¿¡ µû¶ó, ³×Æ®¿öÅ©¸¦ ¶°³µ´Ù°¡ ±×°¡ ¾ø´Â µ¿¾È ¹ú¾îÁø ÀÏÀÇ Áõ°Å·Î ÀÛ¾÷Áõ¸í »ç½½À» ¹Ş¾Æµé¿© ÀçÇÕ·ùÇÒ ¼ö ÀÖ´Ù.
+ÀÌµéÀº CPU ÆÄ¿ö¸¦ »ç¿ëÇÑ ÅõÇ¥·Î, À¯È¿ÇÑ ºí·ÏÀ» ¿¬ÀåÇÏ´Â ÀÛ¾÷À» ÅëÇØ ±×°É ½ÂÀÎÇßÀ½À» ³ªÅ¸³»°í À¯È¿ÇÏÁö ¾ÊÀº ºí·Ï¿¡ ´ëÇÑ ÀÛ¾÷À» °ÅºÎÇÔÀ¸·Î½á ±×°É ±â°¢ÇÑ´Ù.
+¾î¶² ÇÊ¿ä ±ÔÄ¢°ú À¯ÀÎÀÌµç ÀÌ ÇÕÀÇ ÀÛ¿ë(consensus mechanism)À» ÅëÇØ ÁıÇàµÉ ¼ö ÀÖ´Ù.
 
-References
+Âü°í¹®Çå
 
 ---(13-1)---
-[1] W. Dai, "b-money," http://www.weidai.com/bmoney.txt, 1998. 
-[2] H. Massias, X.S. Avila, and J.-J. Quisquater, "Design of a secure timestamping service with minimal trust requirements," In 20th Symposium on Information Theory in the Benelux, May 1999. 
-[3] S. Haber, W.S. Stornetta, "How to time-stamp a digital document," In Journal of Cryptology, vol 3, no 2, pages 99-111, 1991. 
-[4] D. Bayer, S. Haber, W.S. Stornetta, "Improving the efficiency and reliability of digital time-stamping," In Sequences II: Methods in Communication, Security and Computer Science, pages 329-334, 1993. 
-[5] S. Haber, W.S. Stornetta, "Secure names for bit-strings," In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997. 
-[6] A. Back, "Hashcash - a denial of service counter-measure," http://www.hashcash.org/papers/hashcash.pdf, 2002. 
-[7]  R.C. Merkle, "Protocols for public key cryptosystems," In Proc. 1980 Symposium on Security and Privacy, IEEE Computer Society, pages 122-133, April 1980. 
+[1] W. Dai, "b-money," http://www.weidai.com/bmoney.txt, 1998.
+[2] H. Massias, X.S. Avila, and J.-J. Quisquater, "Design of a secure timestamping service with minimal trust requirements," In 20th Symposium on Information Theory in the Benelux, May 1999.
+[3] S. Haber, W.S. Stornetta, "How to time-stamp a digital document," In Journal of Cryptology, vol 3, no 2, pages 99-111, 1991.
+[4] D. Bayer, S. Haber, W.S. Stornetta, "Improving the efficiency and reliability of digital time-stamping," In Sequences II: Methods in Communication, Security and Computer Science, pages 329-334, 1993.
+[5] S. Haber, W.S. Stornetta, "Secure names for bit-strings," In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997.
+[6] A. Back, "Hashcash - a denial of service counter-measure," http://www.hashcash.org/papers/hashcash.pdf, 2002.
+[7] R.C. Merkle, "Protocols for public key cryptosystems," In Proc. 1980 Symposium on Security and Privacy, IEEE Computer Society, pages 122-133, April 1980.
 [8] W. Feller, "An introduction to probability theory and its applications," 1957.
